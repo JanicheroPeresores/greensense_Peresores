@@ -41,23 +41,49 @@ body {
 .nav-list{ display:flex; gap:1.5rem; list-style:none; margin:0; padding:0;}
 .nav-list a{ color:var(--text); text-decoration:none; font-weight:600;}
 
-/* Hero */
+/* Hero section */
 .hero {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100vh; /* full viewport */
   padding: 0 2rem;
-  z-index:1;
+  z-index: 1;
 }
+
+/* Overlay for better text readability */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35); /* semi-transparent black overlay */
+  z-index: 0; /* behind content */
+}
+
+/* Hero panel must be above overlay */
 .hero-panel {
+  position: relative;
+  z-index: 1; /* above overlay */
   background: rgba(255, 255, 255, 0.85);
   padding: 2rem;
   border-radius: var(--radius);
   max-width: 700px;
   text-align: center;
 }
+
+/* Body background */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+  background-size: cover;
+}
+
 
 /* Buttons */
 .btn{ padding:.75rem 1.25rem; border-radius:10px; text-decoration:none; font-weight:700; cursor:pointer;}
