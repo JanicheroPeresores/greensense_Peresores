@@ -8,13 +8,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Newsletter form submission (placeholder)
-document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+// Newsletter form submission
+document.querySelector('.newsletter').addEventListener('submit', function(e) {
     e.preventDefault();
     alert('Thank you for signing up! We\'ll send you updates soon.');
 });
 
-// Intersection Observer for animations (enhancement)
+// Intersection Observer for animations
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -24,4 +24,43 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.1 });
 
-document
+document.querySelectorAll('.section').forEach(section => observer.observe(section));
+
+// Feature slider with infinite looping, swipe, auto-scroll, dots
+const slideContainer = document.querySelector('.features-slide-container');
+const prevBtn = document.querySelector('.slider-btn.prev');
+const nextBtn = document.querySelector('.slider-btn.next');
+const dots = document.querySelectorAll('.slider-dots .dot');
+
+let slideWidth = slideContainer.querySelector('.feature-slide').offsetWidth + 16;
+let isScrolling = false;
+let autoScroll;
+
+// Update active dot
+function updateDots() {
+    const index = Math.round(slideContainer.scrollLeft / slideWidth) % dots.length;
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+}
+
+// Scroll functions
+function scrollPrev() { slideContainer.scrollBy({ left: -slideWidth, behavior: 'smooth' }); }
+function scrollNext() { slideContainer.scrollBy({ left: slideWidth, behavior: 'smooth' }); }
+
+prevBtn.addEventListener('click', () => { scrollPrev(); resetAutoScroll(); });
+nextBtn.addEventListener('click', () => { scrollNext(); resetAutoScroll(); });
+
+// Infinite loop + dots
+slideContainer.addEventListener('scroll', () => {
+    if (isScrolling) return;
+    isScrolling = true;
+    requestAnimationFrame(() => {
+        if (slideContainer.scrollLeft >= slideContainer.scrollWidth - slideContainer.clientWidth - 1) {
+            slideContainer.scrollLeft = 0;
+        }
+        updateDots();
+        isScrolling = false;
+    });
+});
+
+// Dots click
+dots.forEach((dot, i) => {
