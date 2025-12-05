@@ -197,7 +197,7 @@ nav a:hover, nav a:focus {
     margin: 0.5rem 0;
 }
 
-/* Testimonials (New Feature) */
+/* Testimonials (New Feature) -->
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -302,13 +302,3 @@ footer {
 @media (max-width: 480px) {
     .hero-image img {
         max-width: 100%;
-    }
-    .newsletter-form {
-        flex-direction: column;
-        align-items: center;
-    }
-    .cta-button {
-        width: 100%;
-        max-width: 200px;
-    }
-}
