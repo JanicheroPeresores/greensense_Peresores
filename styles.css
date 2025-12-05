@@ -111,3 +111,28 @@ body{
 /* Newsletter */
 .newsletter input{ padding:.75rem; border-radius:8px; border:1px solid #ccc; margin-right:.5rem;}
 .newsletter button{ padding:.75rem 1rem; border-radius:8px; border:none; background:var(--green); color:#fff; cursor:pointer;}
+
+/* About Section */
+.about {
+  background: #f9f9f9;
+  padding: 4rem 0;
+}
+
+.about h2, .about h3 {
+  color: var(--green);
+  margin-bottom: 1rem;
+}
+
+.about p, .about li, .about ol li {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+}
+
+.about ul, .about ol {
+  margin-left: 1.5rem;
+}
+
+.about ul li::marker {
+  color: var(--green);
+  font-weight: bold;
+}
