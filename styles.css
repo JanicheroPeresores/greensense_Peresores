@@ -113,6 +113,7 @@ body{
 .newsletter button{ padding:.75rem 1rem; border-radius:8px; border:none; background:var(--green); color:#fff; cursor:pointer;}
 
 /* About Section */
+/* About Section */
 .about {
   background: #f9f9f9;
   padding: 4rem 0;
@@ -134,10 +135,12 @@ body{
 /* Card styles */
 .about-card {
   background: var(--light-green);
-  padding: 1.5rem;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
   border-radius: var(--radius);
   box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  text-align: center;
   transition: transform .3s ease, box-shadow .3s ease;
+  position: relative;
 }
 
 .about-card:hover {
@@ -145,12 +148,19 @@ body{
   box-shadow: 0 12px 24px rgba(0,0,0,.12);
 }
 
-/* Icon styles */
-.about-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: var(--green);
-  display: inline-block;
+/* Circle Icon inside card */
+.about-icon-circle {
+  width: 70px;
+  height: 70px;
+  background: var(--green);
+  color: #fff;
+  font-size: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -50px auto 1rem auto; /* position above the card */
+  box-shadow: 0 4px 10px rgba(0,0,0,.2);
 }
 
 /* Headings inside cards */
@@ -162,6 +172,7 @@ body{
 /* Lists inside cards */
 .about-card ul, .about-card ol {
   margin-left: 1.5rem;
+  text-align: left;
 }
 
 .about-card ul li::marker,
@@ -174,3 +185,4 @@ body{
   line-height: 1.6;
   margin-bottom: 0.8rem;
 }
+
