@@ -10,7 +10,9 @@
 body{ 
   margin:0; 
   font-family:Arial,sans-serif; 
-  background:var(--env-bg); 
+  background:var(--env-bg);
+  background-size: cover;
+  backgorund-position: center;
   color:var(--text);
 }
 .container{ max-width:var(--container); margin:0 auto; padding:0 1rem; }
