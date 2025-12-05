@@ -43,6 +43,15 @@ body{ margin:0; font-family:Arial,sans-serif; background:#f5f5f7; color:var(--te
 .slider-dots .dot{ width:12px; height:12px; background:#cfcfcf; border-radius:50%; cursor:pointer; display:inline-block;}
 .slider-dots .dot.active{ background:var(--green);}
 
+/* Benefits */
+.benefits-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1rem;}
+.benefit-card{ background:#fff; padding:1rem; border-radius:var(--radius); box-shadow:0 6px 18px rgba(0,0,0,.06);}
+
+/* Stats */
+.stats-grid{ display:flex; flex-wrap:wrap; gap:1rem; margin-top:1rem; justify-content:center;}
+.stat-card{ background:#fff; padding:1rem 1.5rem; border-radius:var(--radius); box-shadow:0 6px 18px rgba(0,0,0,.06); text-align:center;}
+.stat-card h4{ margin:0 0 .5rem; }
+
 /* Newsletter */
 .newsletter input{ padding:.75rem; border-radius:8px; border:1px solid #ccc; margin-right:.5rem;}
 .newsletter button{ padding:.75rem 1rem; border-radius:8px; border:none; background:var(--green); color:#fff; cursor:pointer;}
