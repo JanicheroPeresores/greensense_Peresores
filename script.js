@@ -25,11 +25,42 @@ function updateSlider(){
   container.style.transform = `translateX(-${currentIndex*100}%)`;
   dots.forEach((d,i)=>d.classList.toggle('active', i===currentIndex));
 }
-prev.addEventListener('click', ()=>{ currentIndex=(currentIndex-1+slides.length)%slides.length; updateSlider(); resetAutoScroll(); });
-next.addEventListener('click', ()=>{ currentIndex=(currentIndex+1)%slides.length; updateSlider(); resetAutoScroll(); });
-dots.forEach((dot,i)=>dot.addEventListener('click', ()=>{ currentIndex=i; updateSlider(); resetAutoScroll(); }));
 
-let autoScroll = setInterval(()=>{ currentIndex=(currentIndex+1)%slides.length; updateSlider(); },5000);
+prev.addEventListener('click', ()=>{
+  currentIndex=(currentIndex-1+slides.length)%slides.length;
+  updateSlider();
+  resetAutoScroll();
+});
+
+next.addEventListener('click', ()=>{
+  currentIndex=(currentIndex+1)%slides.length;
+  updateSlider();
+  resetAutoScroll();
+});
+
+dots.forEach((dot,i)=>dot.addEventListener('click', ()=>{
+  currentIndex=i;
+  updateSlider();
+  resetAutoScroll();
+}));
+
+let autoScroll = setInterval(()=>{
+  currentIndex=(currentIndex+1)%slides.length;
+  updateSlider();
+},5000);
+
 container.addEventListener('mouseenter', ()=>clearInterval(autoScroll));
-container.addEventListener('mouseleave', ()=>{ autoScroll=setInterval(()=>{ currentIndex=(currentIndex+1)%slides.length; updateSlider(); },5000); });
-function resetAutoScroll(){ clearInterval(autoScroll); autoScroll=setInterval(()=>{ currentIndex=(currentIndex+1)%slides.length; updateSlider(); },5000); }
+container.addEventListener('mouseleave', ()=>{
+  autoScroll=setInterval(()=>{
+    currentIndex=(currentIndex+1)%slides.length;
+    updateSlider();
+  },5000);
+});
+
+function resetAutoScroll(){
+  clearInterval(autoScroll);
+  autoScroll=setInterval(()=>{
+    currentIndex=(currentIndex+1)%slides.length;
+    updateSlider();
+  },5000);
+}
