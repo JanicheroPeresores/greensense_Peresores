@@ -1,66 +1,66 @@
-// Smooth scrolling for nav links
+// Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', e => {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        document.querySelector(anchor.getAttribute('href')).scrollIntoView({behavior:'smooth'});
     });
 });
 
-// Newsletter form submission
-document.querySelector('.newsletter').addEventListener('submit', function(e) {
+// Newsletter submission
+document.querySelector('.newsletter').addEventListener('submit', function(e){
     e.preventDefault();
-    alert('Thank you for signing up! We\'ll send you updates soon.');
+    const email = document.getElementById('email').value;
+    if(email) alert(`Thanks! We will send updates to ${email}`);
 });
 
-// Intersection Observer for animations
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.style.opacity='1';
+            entry.target.style.transform='translateY(0)';
         }
     });
-}, { threshold: 0.1 });
+},{threshold:0.1});
+document.querySelectorAll('.section').forEach(sec=>observer.observe(sec));
 
-document.querySelectorAll('.section').forEach(section => observer.observe(section));
-
-// Feature slider with infinite looping, swipe, auto-scroll, dots
-const slideContainer = document.querySelector('.features-slide-container');
-const prevBtn = document.querySelector('.slider-btn.prev');
-const nextBtn = document.querySelector('.slider-btn.next');
+// Slider PPT
+const slides = document.querySelectorAll('.feature-slide');
+const container = document.querySelector('.features-slide-container');
+const prev = document.querySelector('.slider-btn.prev');
+const next = document.querySelector('.slider-btn.next');
 const dots = document.querySelectorAll('.slider-dots .dot');
-
-let slideWidth = slideContainer.querySelector('.feature-slide').offsetWidth + 16;
-let isScrolling = false;
+let currentIndex = 0;
 let autoScroll;
 
-// Update active dot
-function updateDots() {
-    const index = Math.round(slideContainer.scrollLeft / slideWidth) % dots.length;
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+// Update slide and dots
+function updateSlider(){
+    container.style.transform = `translateX(-${currentIndex*100}%)`;
+    dots.forEach((d,i)=>d.classList.toggle('active', i===currentIndex));
 }
 
-// Scroll functions
-function scrollPrev() { slideContainer.scrollBy({ left: -slideWidth, behavior: 'smooth' }); }
-function scrollNext() { slideContainer.scrollBy({ left: slideWidth, behavior: 'smooth' }); }
-
-prevBtn.addEventListener('click', () => { scrollPrev(); resetAutoScroll(); });
-nextBtn.addEventListener('click', () => { scrollNext(); resetAutoScroll(); });
-
-// Infinite loop + dots
-slideContainer.addEventListener('scroll', () => {
-    if (isScrolling) return;
-    isScrolling = true;
-    requestAnimationFrame(() => {
-        if (slideContainer.scrollLeft >= slideContainer.scrollWidth - slideContainer.clientWidth - 1) {
-            slideContainer.scrollLeft = 0;
-        }
-        updateDots();
-        isScrolling = false;
-    });
-});
+// Prev/Next
+prev.addEventListener('click', ()=>{ currentIndex = (currentIndex-1+slides.length)%slides.length; updateSlider(); resetAutoScroll(); });
+next.addEventListener('click', ()=>{ currentIndex = (currentIndex+1)%slides.length; updateSlider(); resetAutoScroll(); });
 
 // Dots click
-dots.forEach((dot, i) => {
+dots.forEach((dot,i)=>dot.addEventListener('click',()=>{ currentIndex=i; updateSlider(); resetAutoScroll(); }));
+
+// Auto-scroll
+function startAutoScroll(){ autoScroll=setInterval(()=>{ currentIndex=(currentIndex+1)%slides.length; updateSlider(); },5000);}
+function stopAutoScroll(){ clearInterval(autoScroll);}
+function resetAutoScroll(){ stopAutoScroll(); startAutoScroll(); }
+
+startAutoScroll();
+
+// Touch swipe
+let startX=0;
+container.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; stopAutoScroll(); });
+container.addEventListener('touchend', e=>{
+    const diff=startX-e.changedTouches[0].clientX;
+    if(Math.abs(diff)>50){
+        currentIndex=(diff>0)?(currentIndex+1)%slides.length:(currentIndex-1+slides.length)%slides.length;
+        updateSlider();
+    }
+    startAutoScroll();
+});
